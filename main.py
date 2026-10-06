@@ -196,6 +196,11 @@ def calculate(req: CalculationRequest):
 
 @app.get("/divide")
 def divide(a: float, b: float):
+    # Added explicit check to prevent division by zero and return a clear HTTP error.
+    if b == 0:
+        raise HTTPException(status_code=400, detail="Division by zero is not allowed.")
+    # Original behavior preserved for non‑zero denominator.
+    return {"result": a / b}
     # Do NOT catch ZeroDivisionError with try/except!
     # Let Python raise ZeroDivisionError naturally when b=0 so RecoveryMiddleware captures the stacktrace.
     return {"result": a / b}
