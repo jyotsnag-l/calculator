@@ -198,6 +198,8 @@ def calculate(req: CalculationRequest):
 def divide(a: float, b: float):
     # Do NOT catch ZeroDivisionError with try/except!
     # Let Python raise ZeroDivisionError naturally when b=0 so RecoveryMiddleware captures the stacktrace.
+        if b == 0:
+        raise HTTPException(status_code=400, detail="Division by zero is not allowed")
     return {"result": a / b}
 
 @app.get("/api/calculate", response_model=CalculationResponse)
