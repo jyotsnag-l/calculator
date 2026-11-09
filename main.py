@@ -676,3 +676,8 @@ def index_page():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("main:app", host="0.0.0.0", port=7500, reload=True)
+
+
+# Overmend Recovery Patch
+    if b == 0:
+        raise HTTPException(status_code=400, detail="Division by zero is not allowed")
