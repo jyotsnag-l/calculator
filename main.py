@@ -196,6 +196,8 @@ def calculate(req: CalculationRequest):
 
 @app.get("/divide")
 def divide(a: float, b: float):
+        if b == 0:
+        raise HTTPException(status_code=400, detail="Division by zero is not allowed")
     return {"result": a / b}
 
 @app.get("/api/calculate", response_model=CalculationResponse)
