@@ -200,6 +200,15 @@ def divide(a: float, b: float):
     # If b is zero we raise a clear HTTP 400 error instead of letting the exception bubble up.
     if b == 0:
         raise HTTPException(status_code=400, detail="Division by zero is not allowed.")
+def _validate_nonzero_denominator(b: float) -> None:
+    """Utility to ensure the denominator is not zero.
+    Raises:
+        HTTPException: If *b* is zero, with a 400 status code.
+    """
+    if b == 0:
+        raise HTTPException(status_code=400, detail="Denominator cannot be zero")
+    # Validate denominator before performing division.
+    _validate_nonzero_denominator(b)
     return {"result": a / b}
 def divide(a: float, b: float):
         if b == 0:
