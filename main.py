@@ -196,6 +196,12 @@ def calculate(req: CalculationRequest):
 
 @app.get("/divide")
 def divide(a: float, b: float):
+    # Validate divisor to avoid unhandled ZeroDivisionError.
+    # If b is zero we raise a clear HTTP 400 error instead of letting the exception bubble up.
+    if b == 0:
+        raise HTTPException(status_code=400, detail="Division by zero is not allowed.")
+    return {"result": a / b}
+def divide(a: float, b: float):
         if b == 0:
         raise HTTPException(status_code=400, detail="Division by zero is not allowed")
     return {"result": a / b}
